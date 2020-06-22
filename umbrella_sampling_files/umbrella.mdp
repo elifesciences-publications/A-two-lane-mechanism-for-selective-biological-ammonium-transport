@@ -1,0 +1,56 @@
+define			= -DUPPER_WIRE_REST_ON -DAMM_REST_ON 
+integrator              = md
+dt                      = 0.002
+nsteps                  = 5000000  ; 10 ns at moment
+nstlog                  = 1000
+nstxout                 = 00
+nstvout                 = 000
+nstxtcout               = 1000
+nstcalcenergy           = 100
+nstenergy               = 1000
+
+;
+cutoff-scheme           = Verlet
+nstlist                 = 20
+rlist                   = 1.2
+coulombtype             = pme
+rcoulomb                = 1.2
+vdwtype                 = Cut-off
+vdw-modifier            = Force-switch
+rvdw_switch             = 1.0
+rvdw                    = 1.2
+;
+tcoupl                  = Nose-Hoover
+tc_grps                 = PROT   MEMB   SOL_ION
+tau_t                   = 1.0    1.0    1.0
+ref_t                   = 303.15 303.15 303.15
+;
+pcoupl                  = Parrinello-Rahman
+pcoupltype              = semiisotropic
+tau_p                   = 5.0
+compressibility         = 4.5e-5  4.5e-5
+ref_p                   = 1.0     1.0
+;
+constraints             = h-bonds
+constraint_algorithm    = LINCS
+continuation            = yes
+;
+nstcomm                 = 100
+comm_mode               = linear
+comm_grps               = PROT   MEMB   SOL_ION
+;
+refcoord_scaling        = com
+;
+; umbrella sampling parameters
+pull			= yes
+pull_ngroups		= 2
+pull_ncoords		= 1
+pull_group1_name	= AMM1
+pull_group2_name	= PROT
+pull_coord1_type	= umbrella
+pull_coord1_geometry	= distance
+pull_coord1_groups	= 1 2
+pull_coord1_dim		= N N Y
+pull_coord1_rate       	= 0.0
+pull_coord1_k       	= 1000
+pull_coord1_start      	= yes

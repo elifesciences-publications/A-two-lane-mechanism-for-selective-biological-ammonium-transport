@@ -1,0 +1,5 @@
+[ position_restraints ]
+; ai  funct	g	r(nm)	k
+ 1    1      0      0   10000000   ; point restr
+; ai  funct	g	r(nm)	k
+ 1    2    	2       0.5     400   ; cylindrical restr
